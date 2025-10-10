@@ -1,0 +1,17 @@
+{
+  "domain": "creality_3dprinter",
+  "name": "Creality 3d Printer",
+  "codeowners": [
+    "@jerri"
+  ],
+  "version": "0.0.1",
+  "config_flow": true,
+  "dependencies": [],
+  "documentation": "https://www.home-assistant.io/integrations/creality_3dprinter",
+  "homekit": {},
+  "iot_class": "local_polling",
+  "quality_scale": "bronze",
+  "requirements": ["websockets"],
+  "ssdp": [],
+  "zeroconf": []
+}
