@@ -36,6 +36,7 @@ class Creality3DPrinterCoordinator(DataUpdateCoordinator[Creality3DPrinterData])
         pass
 
     async def _async_update_data(self) -> Creality3DPrinterData:
+        # Can we make the updates more frequent, when the printer is in the status printing?
         data = await self.client.get_status()
         if "error" in data:
             raise UpdateFailed(translation_domain=DOMAIN, translation_key="update_error", translation_placeholders=data)
