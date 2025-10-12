@@ -25,6 +25,7 @@ from .entity import Creality3DPrinterEntity
 
 PARALLEL_UPDATES = 0
 STATES = {0: 'unknown', 1: 'printing', 2: 'complete', 4: 'idle', 5: 'paused'}
+STATE_VALUES = tuple(STATES.values())
 
 
 @dataclass(frozen=True, kw_only=True)
@@ -40,7 +41,7 @@ SENSORS: tuple[Creality3DPrinterSensorEntityDescription, ...] = (
         key="state",
         name="Printer State",
         device_class=SensorDeviceClass.ENUM,
-        options=STATES.values(),
+        options=STATE_VALUES,
         value_fn=lambda status: STATES[status['state']] if status['state'] in STATES else 'unknown',
     ),
     Creality3DPrinterSensorEntityDescription(
