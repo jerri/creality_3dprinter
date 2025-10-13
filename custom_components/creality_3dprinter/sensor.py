@@ -105,30 +105,12 @@ SENSORS: tuple[Creality3DPrinterSensorEntityDescription, ...] = (
 
 async def async_setup_entry(hass: HomeAssistant, entry: Creality3DPrinterConfigEntry, async_add_entities: AddConfigEntryEntitiesCallback) -> None:
     coordinator = entry.runtime_data
-    listener: Callable[[], None] | None = None
-    not_setup: set[Creality3DPrinterSensorEntityDescription] = set(SENSORS)
 
-    @callback
-    def add_entities() -> None:
-        nonlocal not_setup, listener
-        sensor_descriptions = not_setup
-        not_setup = set()
-        sensors = []
-        for description in sensor_descriptions:
-            if description.value_fn(coordinator.data.data) is None:
-                not_setup.add(description)
-            else:
-                sensors.append(Creality3DPrinterSensor(coordinator, description))
+    sensors = []
+    for description in SENSORS:
+        sensors.append(Creality3DPrinterSensor(coordinator, description))
 
-        if sensors:
-            async_add_entities(sensors)
-        if not_setup:
-            if not listener:
-                listener = coordinator.async_add_listener(add_entities)
-        elif listener:
-            listener()
-
-    add_entities()
+    async_add_entities(sensors)
 
 
 class Creality3DPrinterSensor(Creality3DPrinterEntity, SensorEntity):
