@@ -15,9 +15,11 @@ from homeassistant.const import (
     PERCENTAGE,
 )
 
-from homeassistant.core import HomeAssistant, callback
+from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.typing import StateType
+from homeassistant.util.dt import utcnow
+from datetime import datetime, timedelta
 
 from . import Creality3DPrinterConfigEntry
 from .coordinator import Creality3DPrinterCoordinator
@@ -32,7 +34,7 @@ STATE_VALUES = list(STATES.values())
 class Creality3DPrinterSensorEntityDescription(SensorEntityDescription):
     """Describes Creality 3D Printer sensor entity."""
 
-    value_fn: Callable[[dict], StateType]
+    value_fn: Callable[[dict], datetime | StateType]
     """Function to extract the sensor value from the API data."""
 
 
@@ -100,6 +102,12 @@ SENSORS: tuple[Creality3DPrinterSensorEntityDescription, ...] = (
         name="Print File Name",
         value_fn=lambda status: status['printFileName'],
     ),
+    Creality3DPrinterSensorEntityDescription(
+        key="printLeftTime",
+        name="Print finish time",
+        device_class=SensorDeviceClass.TIMESTAMP,
+        value_fn=lambda status: (utcnow() + timedelta(seconds=status['printLeftTime'])) if status['state'] == 1 and status['printLeftTime'] > 0 else None,
+    )
 )
 
 

@@ -20,4 +20,5 @@ OFFLINE_STATUS = {
     "TotalLayer": 0,
     "layer": 0,
     "printFileName": "",
+    "printLeftTime": None,
 }

@@ -1,6 +1,5 @@
 import websockets
 import json
-import asyncio
 
 OPEN_TIMEOUT = 3
 
@@ -22,4 +21,4 @@ class CrealityPrinter:
         except TimeoutError:
             return {"error": "Timeout connecting to server"}
         except OSError:
-            return {"error": "Error connecting to server. Maybe printer turned off?"}
+            return {"error": "Error connecting to server. Maybe printer is turned off?"}
