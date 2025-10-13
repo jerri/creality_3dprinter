@@ -10,7 +10,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .api import CrealityPrinter
-from .const import (DOMAIN, LOGGER, UPDATE_INTERVAL_NORMAL, UPDATE_INTERVAL_PRINTING)
+from .const import (DOMAIN, LOGGER, UPDATE_INTERVAL_NORMAL, UPDATE_INTERVAL_PRINTING, OFFLINE_STATUS)
 
 type Creality3DPrinterConfigEntry = ConfigEntry[Creality3DPrinterCoordinator]
 
@@ -38,7 +38,7 @@ class Creality3DPrinterCoordinator(DataUpdateCoordinator[Creality3DPrinterData])
     async def _async_update_data(self) -> Creality3DPrinterData:
         data = await self.client.get_status()
         if "error" in data:
-            raise UpdateFailed(translation_domain=DOMAIN, translation_key="update_error", translation_placeholders=data)
+            data = OFFLINE_STATUS
         # Update more often, when the printer is actually printing.
         if data['state'] == 1:
             self.update_interval = timedelta(seconds=UPDATE_INTERVAL_PRINTING)

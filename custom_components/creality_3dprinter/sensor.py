@@ -24,8 +24,8 @@ from .coordinator import Creality3DPrinterCoordinator
 from .entity import Creality3DPrinterEntity
 
 PARALLEL_UPDATES = 0
-STATES = {0: 'unknown', 1: 'printing', 2: 'complete', 4: 'idle', 5: 'paused'}
-STATE_VALUES = tuple(STATES.values())
+STATES = {0: 'unknown', 1: 'printing', 2: 'complete', 4: 'idle', 5: 'paused', 99: 'offline'}
+STATE_VALUES = list(STATES.values())
 
 
 @dataclass(frozen=True, kw_only=True)
