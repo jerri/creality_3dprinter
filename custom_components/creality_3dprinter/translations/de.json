@@ -1,0 +1,66 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Gerät ist bereits konfiguriert"
+        },
+        "error": {
+            "cannot_connect": "Verbindung nicht möglich",
+            "invalid_auth": "Authentifizierung fehlgeschlagen",
+            "unknown": "Unerwarteter Fehler"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "Host oder IP des Creality 3D Druckers.",
+                    "port": "Port zur Websocket-Verbindung des Druckers."
+                }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "state": {
+                "name": "Drucker Status",
+                "state": {
+                    "unknown": "Unbekannt",
+                    "printing": "Druckt",
+                    "complete": "Fertig",
+                    "idle": "Leerlauf",
+                    "paused": "Pausiert",
+                    "offline": "Offline"
+                }
+            },
+            "nozzleTemp": {
+                "name": "Druckkopf Temperatur"
+            },
+            "targetNozzleTemp": {
+                "name": "Ziel Druckkopf Temperatur"
+            },
+            "bedTemp0": {
+                "name": "Druckbett Temperatur"
+            },
+            "targetBedTemp0": {
+                "name": "Ziel Druckbett Temperatur"
+            },
+            "printProgress": {
+                "name": "Druck Fortschritt"
+            },
+            "TotalLayer": {
+                "name": "Anzahl Schichten"
+            },
+            "layer": {
+                "name": "Aktuelle Schicht"
+            },
+            "printFileName": {
+                "name": "Dateiname des Drucks"
+            },
+            "printLeftTime": {
+                "name": "Fertigstellungszeitpunkt"
+            }
+        }
+    }
+}

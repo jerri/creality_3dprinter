@@ -19,8 +19,8 @@ _LOGGER = logging.getLogger(__name__)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
-        vol.Required(CONF_HOST, description="Host or IP of the 3d printer."): str,
-        vol.Required(CONF_PORT, description="Port to the websocket connection", default="9999"): str,
+        vol.Required(CONF_HOST): str,
+        vol.Required(CONF_PORT, default="9999"): str,
     }
 )
 

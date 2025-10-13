@@ -12,9 +12,54 @@
             "user": {
                 "data": {
                     "host": "Host",
-                    "password": "Password",
-                    "username": "Username"
+                    "port": "Port"
+                },
+                "data_description": {
+                    "host": "Host or IP of the creality 3d printer.",
+                    "port": "Port to the websocket connection of the printer."
                 }
+            }
+        }
+    },
+    "entity": {
+        "sensor": {
+            "state": {
+                "name": "Printer State",
+                "state": {
+                    "unknown": "unknown",
+                    "printing": "printing",
+                    "complete": "complete",
+                    "idle": "idle",
+                    "paused": "paused",
+                    "offline": "offline"
+                }
+            },
+            "nozzleTemp": {
+                "name": "Nozzle Temperature"
+            },
+            "targetNozzleTemp": {
+                "name": "Target Nozzle Temperature"
+            },
+            "bedTemp0": {
+                "name": "Bed Temperature"
+            },
+            "targetBedTemp0": {
+                "name": "Target Bed Temperature"
+            },
+            "printProgress": {
+                "name": "Print Progress"
+            },
+            "TotalLayer": {
+                "name": "Total Layers"
+            },
+            "layer": {
+                "name": "Current Layer"
+            },
+            "printFileName": {
+                "name": "Print File Name"
+            },
+            "printLeftTime": {
+                "name": "Print finish time"
             }
         }
     }

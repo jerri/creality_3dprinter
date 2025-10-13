@@ -41,14 +41,14 @@ class Creality3DPrinterSensorEntityDescription(SensorEntityDescription):
 SENSORS: tuple[Creality3DPrinterSensorEntityDescription, ...] = (
     Creality3DPrinterSensorEntityDescription(
         key="state",
-        name="Printer State",
+        translation_key="state",
         device_class=SensorDeviceClass.ENUM,
         options=STATE_VALUES,
         value_fn=lambda status: STATES[status['state']] if status['state'] in STATES else 'unknown',
     ),
     Creality3DPrinterSensorEntityDescription(
         key="nozzleTemp",
-        name="Nozzle Temperature",
+        translation_key="nozzleTemp",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         state_class=SensorStateClass.MEASUREMENT,
@@ -56,7 +56,7 @@ SENSORS: tuple[Creality3DPrinterSensorEntityDescription, ...] = (
     ),
     Creality3DPrinterSensorEntityDescription(
         key="targetNozzleTemp",
-        name="Target Nozzle Temperature",
+        translation_key="targetNozzleTemp",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         state_class=SensorStateClass.MEASUREMENT,
@@ -64,7 +64,7 @@ SENSORS: tuple[Creality3DPrinterSensorEntityDescription, ...] = (
     ),
     Creality3DPrinterSensorEntityDescription(
         key="bedTemp0",
-        name="Bed Temperature",
+        translation_key="bedTemp0",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         state_class=SensorStateClass.MEASUREMENT,
@@ -72,7 +72,7 @@ SENSORS: tuple[Creality3DPrinterSensorEntityDescription, ...] = (
     ),
     Creality3DPrinterSensorEntityDescription(
         key="targetBedTemp0",
-        name="Target Bed Temperature",
+        translation_key="targetBedTemp0",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         state_class=SensorStateClass.MEASUREMENT,
@@ -80,31 +80,31 @@ SENSORS: tuple[Creality3DPrinterSensorEntityDescription, ...] = (
     ),
     Creality3DPrinterSensorEntityDescription(
         key="printProgress",
-        name="Print Progress",
+        translation_key="printProgress",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda status: status['printProgress'],
     ),
     Creality3DPrinterSensorEntityDescription(
         key="TotalLayer",
-        name="Total Layers",
+        translation_key="TotalLayer",
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda status: status['TotalLayer'],
     ),
     Creality3DPrinterSensorEntityDescription(
         key="layer",
-        name="Current Layer",
+        translation_key="layer",
         state_class=SensorStateClass.MEASUREMENT,
         value_fn=lambda status: status['layer'],
     ),
     Creality3DPrinterSensorEntityDescription(
         key="printFileName",
-        name="Print File Name",
+        translation_key="printFileName",
         value_fn=lambda status: status['printFileName'],
     ),
     Creality3DPrinterSensorEntityDescription(
         key="printLeftTime",
-        name="Print finish time",
+        translation_key="printLeftTime",
         device_class=SensorDeviceClass.TIMESTAMP,
         value_fn=lambda status: (utcnow() + timedelta(seconds=status['printLeftTime'])) if status['state'] == 1 and status['printLeftTime'] > 0 else None,
     )
