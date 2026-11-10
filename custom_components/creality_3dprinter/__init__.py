@@ -1,4 +1,4 @@
-"""The Creality 3d Printer integration."""
+"""The Creality 3D Printer integration."""
 
 from __future__ import annotations
 
@@ -6,7 +6,7 @@ from homeassistant.const import CONF_HOST, CONF_PORT, Platform
 from homeassistant.core import HomeAssistant
 
 from .api import CrealityPrinter
-from .coordinator import Creality3DPrinterCoordinator, Creality3DPrinterConfigEntry
+from .coordinator import Creality3DPrinterConfigEntry, Creality3DPrinterCoordinator
 
 _PLATFORMS: list[Platform] = [Platform.SENSOR]
 

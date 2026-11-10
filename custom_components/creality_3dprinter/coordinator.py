@@ -7,7 +7,10 @@ from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
-from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
+from homeassistant.helpers.update_coordinator import (
+    DataUpdateCoordinator,
+    UpdateFailed,
+)
 
 from .api import CrealityPrinter, CrealityPrinterError
 from .const import (
@@ -40,7 +43,7 @@ class Creality3DPrinterCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             update_interval=timedelta(seconds=UPDATE_INTERVAL_NORMAL),
         )
         self.client = client
-        self.device_id = config_entry.unique_id or config_entry.entry_id
+        self.device_id: str = config_entry.unique_id or config_entry.entry_id
 
     async def _async_update_data(self) -> dict[str, Any]:
         """Fetch the latest status from the printer."""
