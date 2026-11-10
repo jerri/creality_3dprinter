@@ -1,8 +1,8 @@
 # Creality 3D Printer
 
-Consider this at the moment as an alpha version of the integration. It might break your home assistant setup, so be careful with what you are doing.
+This integration is still under active development. Review the [changelog](CHANGELOG.md) before upgrading, especially for behavior changes.
 
-I didn't find any usable integration for my Creality Ender3 V3 KE printer and decided to just create my own integration. The code is definitely not finished. Creating an integration for Home Assistant proved more complicated than expected. I will try to work towards a more complete implementation, though.
+I didn't find any usable integration for my Creality Ender3 V3 KE printer and decided to just create my own integration. Creating an integration for Home Assistant proved more complicated than expected. I will continue working towards a more complete implementation.
 
 Right now this integration only provides some sensors which can be read from the websocket interface the Ender3 v3 KE provides on port 9999. This is on a untouched Creality Ender3 V3 KE. I don't know if other printers provide the same kind of websocket. I don't own any other Creality Printer, so I am not sure. But it might be worth a try.
 
@@ -34,3 +34,7 @@ The easiest way to install **Creality 3D Printer** is via **[HACS (Home Assistan
 - The integration polls every 30 seconds, and every 5 seconds while a print is active.
 - When the printer is powered off, the sensors show as `unavailable`. The integration retries every 30 seconds and recovers automatically when the printer is switched on.
 - If Home Assistant started while the printer was off, the device model may be empty until the integration is reloaded while the printer is online.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for the release history.

@@ -15,9 +15,10 @@ Pull requests are the best way to propose changes to the codebase.
 
 1. Fork the repo and create your branch from `main`.
 2. If you've changed something, update the documentation.
-3. Make sure your code lints (using `ruff check .`).
-4. Run the test suite (see below).
-5. Issue that pull request!
+3. If your change is user-facing, add an entry to `CHANGELOG.md`.
+4. Make sure your code lints (using `ruff check .`).
+5. Run the test suite (see below).
+6. Issue that pull request!
 
 ## Any contributions you make will be under the MIT Software License
 
@@ -65,6 +66,16 @@ Check the code style with:
 ```bash
 ruff check .
 ```
+
+## Releasing
+
+1. Update `version` in `custom_components/creality_3dprinter/manifest.json`.
+2. Add the release notes to `CHANGELOG.md`.
+3. Commit and push the changes.
+4. Create a tag named `vX.Y.Z` for that commit.
+5. Create a GitHub release from the tag and use the changelog entry as its description. HACS discovers updates from the release.
+
+The tag and the manifest version must match, for example `v0.1.0` and `0.1.0`.
 
 ## License
 
