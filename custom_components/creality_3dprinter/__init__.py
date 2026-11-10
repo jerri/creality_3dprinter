@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from homeassistant.const import Platform
+from homeassistant.const import CONF_HOST, CONF_PORT, Platform
 from homeassistant.core import HomeAssistant
 
 from .api import CrealityPrinter
@@ -11,14 +11,17 @@ from .coordinator import Creality3DPrinterCoordinator, Creality3DPrinterConfigEn
 _PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 
-async def async_setup_entry(hass: HomeAssistant, entry: Creality3DPrinterConfigEntry) -> bool:
-    """Set up Creality 3d Printer from a config entry."""
+async def async_setup_entry(
+    hass: HomeAssistant, entry: Creality3DPrinterConfigEntry
+) -> bool:
+    """Set up Creality 3D Printer from a config entry."""
+    client = CrealityPrinter(entry.data[CONF_HOST], entry.data[CONF_PORT])
+    coordinator = Creality3DPrinterCoordinator(hass, entry, client)
 
-    api = CrealityPrinter(entry.data['host'], entry.data['port'])
-
-    coordinator = Creality3DPrinterCoordinator(hass, entry, api)
-
-    await coordinator.async_config_entry_first_refresh()
+    # The printer is usually powered off. A failed first refresh must not
+    # prevent the entry from loading; entities become available automatically
+    # once the printer is reachable again.
+    await coordinator.async_refresh()
 
     entry.runtime_data = coordinator
 
@@ -27,6 +30,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: Creality3DPrinterConfigE
     return True
 
 
-async def async_unload_entry(hass: HomeAssistant, entry: Creality3DPrinterConfigEntry) -> bool:
+async def async_unload_entry(
+    hass: HomeAssistant, entry: Creality3DPrinterConfigEntry
+) -> bool:
     """Unload a config entry."""
     return await hass.config_entries.async_unload_platforms(entry, _PLATFORMS)

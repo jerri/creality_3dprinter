@@ -2,46 +2,58 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
 from datetime import timedelta
+from typing import Any
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .api import CrealityPrinter
-from .const import (DOMAIN, LOGGER, UPDATE_INTERVAL_NORMAL, UPDATE_INTERVAL_PRINTING, OFFLINE_STATUS)
+from .api import CrealityPrinter, CrealityPrinterError
+from .const import (
+    LOGGER,
+    UPDATE_INTERVAL_NORMAL,
+    UPDATE_INTERVAL_PRINTING,
+    PrinterState,
+)
 
 type Creality3DPrinterConfigEntry = ConfigEntry[Creality3DPrinterCoordinator]
 
 
-@dataclass
-class Creality3DPrinterData:
-
-    data: dict
-
-
-class Creality3DPrinterCoordinator(DataUpdateCoordinator[Creality3DPrinterData]):
+class Creality3DPrinterCoordinator(DataUpdateCoordinator[dict[str, Any]]):
+    """Fetch data from the printer and poll faster while it is printing."""
 
     config_entry: Creality3DPrinterConfigEntry
 
-    def __init__(self, hass: HomeAssistant, configEntry: Creality3DPrinterConfigEntry, client: CrealityPrinter) -> None:
-        super().__init__(hass, logger=LOGGER, config_entry=configEntry, name=f"Creality 3d Printer {client._host}", update_interval=timedelta(seconds=UPDATE_INTERVAL_NORMAL))
+    def __init__(
+        self,
+        hass: HomeAssistant,
+        config_entry: Creality3DPrinterConfigEntry,
+        client: CrealityPrinter,
+    ) -> None:
+        """Initialize the coordinator."""
+        super().__init__(
+            hass,
+            LOGGER,
+            config_entry=config_entry,
+            name=f"Creality 3D Printer {client.host}",
+            update_interval=timedelta(seconds=UPDATE_INTERVAL_NORMAL),
+        )
         self.client = client
-        assert self.config_entry.unique_id
-        self.serial_number = self.config_entry.unique_id
+        self.device_id = config_entry.unique_id or config_entry.entry_id
 
-    async def _async_setup(self) -> None:
-        """Don't think this is necessary."""
-        pass
+    async def _async_update_data(self) -> dict[str, Any]:
+        """Fetch the latest status from the printer."""
+        try:
+            data = await self.client.get_status()
+        except CrealityPrinterError as err:
+            # Do not keep polling every 5 seconds while the printer is off.
+            self.update_interval = timedelta(seconds=UPDATE_INTERVAL_NORMAL)
+            raise UpdateFailed(f"Unable to fetch printer data: {err}") from err
 
-    async def _async_update_data(self) -> Creality3DPrinterData:
-        data = await self.client.get_status()
-        if "error" in data:
-            data = OFFLINE_STATUS
-        # Update more often, when the printer is actually printing.
-        if data['state'] == 1:
+        if data.get("state") == PrinterState.PRINTING:
             self.update_interval = timedelta(seconds=UPDATE_INTERVAL_PRINTING)
         else:
             self.update_interval = timedelta(seconds=UPDATE_INTERVAL_NORMAL)
-        return Creality3DPrinterData(data)
+
+        return data

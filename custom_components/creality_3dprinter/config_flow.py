@@ -13,7 +13,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.exceptions import HomeAssistantError
 
 from .const import DOMAIN
-from .api import CrealityPrinter
+from .api import CrealityPrinter, CrealityPrinterError
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -35,8 +35,9 @@ class CrealityPrinterHub:
 
     async def getdata(self) -> bool:
         api = CrealityPrinter(self.host, self.port)
-        self.status = await api.get_status()
-        if "error" in self.status:
+        try:
+            self.status = await api.get_status()
+        except CrealityPrinterError:
             return False
         return True
 
