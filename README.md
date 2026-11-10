@@ -23,7 +23,13 @@ The easiest way to install **Creality 3D Printer** is via **[HACS (Home Assistan
 #### Steps:
 
 1. Ensure **[HACS](https://hacs.xyz/docs/setup/download)** is installed in Home Assistant.
-2. Go to **HACS → Frontend → Custom Repositories**.
-3. Add this repository: `https://github.com/jerri/creality_3dprinter` as type `Integration`
-4. Install **Creality 3d Printer** from HACS.
-5. Reload Home Assistant.
+2. Go to **HACS → Integrations**.
+3. Open the three-dot menu and choose **Custom repositories**.
+4. Add `https://github.com/jerri/creality_3dprinter` with category **Integration**.
+5. Install **Creality 3D Printer** from HACS.
+6. Restart Home Assistant.
+
+## Troubleshooting
+
+- When the printer is powered off, the sensors show as `unavailable`. The integration retries every 30 seconds and recovers automatically when the printer is switched on.
+- If Home Assistant started while the printer was off, the device model may be empty until the integration is reloaded while the printer is online.

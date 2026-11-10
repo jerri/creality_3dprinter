@@ -2,20 +2,64 @@
   "config": {
     "step": {
       "user": {
+        "description": "Enter the host and port of the printer's websocket interface.",
         "data": {
-          "host": "[%key:common::config_flow::data::host%]",
-          "username": "[%key:common::config_flow::data::username%]",
-          "password": "[%key:common::config_flow::data::password%]"
+          "host": "Host",
+          "port": "Port"
+        },
+        "data_description": {
+          "host": "Host or IP address of the Creality 3D printer.",
+          "port": "Port of the printer's websocket API."
         }
       }
     },
     "error": {
-      "cannot_connect": "[%key:common::config_flow::error::cannot_connect%]",
-      "invalid_auth": "[%key:common::config_flow::error::invalid_auth%]",
-      "unknown": "[%key:common::config_flow::error::unknown%]"
+      "cannot_connect": "Failed to connect",
+      "unknown": "Unexpected error"
     },
     "abort": {
-      "already_configured": "[%key:common::config_flow::abort::already_configured_device%]"
+      "already_configured": "Device is already configured"
+    }
+  },
+  "entity": {
+    "sensor": {
+      "state": {
+        "name": "Printer State",
+        "state": {
+          "unknown": "Unknown",
+          "printing": "Printing",
+          "complete": "Complete",
+          "idle": "Idle",
+          "paused": "Paused"
+        }
+      },
+      "nozzleTemp": {
+        "name": "Nozzle Temperature"
+      },
+      "targetNozzleTemp": {
+        "name": "Target Nozzle Temperature"
+      },
+      "bedTemp0": {
+        "name": "Bed Temperature"
+      },
+      "targetBedTemp0": {
+        "name": "Target Bed Temperature"
+      },
+      "printProgress": {
+        "name": "Print Progress"
+      },
+      "TotalLayer": {
+        "name": "Total Layers"
+      },
+      "layer": {
+        "name": "Current Layer"
+      },
+      "printFileName": {
+        "name": "Print File Name"
+      },
+      "printLeftTime": {
+        "name": "Print finish time"
+      }
     }
   }
 }

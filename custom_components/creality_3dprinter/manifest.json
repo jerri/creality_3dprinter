@@ -1,17 +1,13 @@
 {
   "domain": "creality_3dprinter",
-  "name": "Creality 3d Printer",
-  "codeowners": [
-    "@jerri"
-  ],
-  "version": "0.0.4",
+  "name": "Creality 3D Printer",
+  "codeowners": ["@jerri"],
   "config_flow": true,
-  "dependencies": [],
-  "documentation": "https://www.home-assistant.io/integrations/creality_3dprinter",
-  "homekit": {},
+  "documentation": "https://github.com/jerri/creality_3dprinter",
+  "integration_type": "device",
   "iot_class": "local_polling",
-  "quality_scale": "bronze",
-  "requirements": ["websockets"],
-  "ssdp": [],
-  "zeroconf": []
+  "issue_tracker": "https://github.com/jerri/creality_3dprinter/issues",
+  "loggers": ["custom_components.creality_3dprinter"],
+  "requirements": ["websockets>=12.0"],
+  "version": "0.0.4"
 }

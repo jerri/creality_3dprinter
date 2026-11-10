@@ -5,18 +5,18 @@
         },
         "error": {
             "cannot_connect": "Verbindung nicht möglich",
-            "invalid_auth": "Authentifizierung fehlgeschlagen",
             "unknown": "Unerwarteter Fehler"
         },
         "step": {
             "user": {
+                "description": "Gib Host und Port der Websocket-Schnittstelle des Druckers ein.",
                 "data": {
                     "host": "Host",
                     "port": "Port"
                 },
                 "data_description": {
-                    "host": "Host oder IP des Creality 3D Druckers.",
-                    "port": "Port zur Websocket-Verbindung des Druckers."
+                    "host": "Host oder IP-Adresse des Creality 3D Druckers.",
+                    "port": "Port der Websocket-API des Druckers."
                 }
             }
         }
@@ -30,8 +30,7 @@
                     "printing": "Druckt",
                     "complete": "Fertig",
                     "idle": "Leerlauf",
-                    "paused": "Pausiert",
-                    "offline": "Offline"
+                    "paused": "Pausiert"
                 }
             },
             "nozzleTemp": {
