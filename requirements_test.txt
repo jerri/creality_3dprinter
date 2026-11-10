@@ -1,0 +1,4 @@
+# Test and lint dependencies for local development
+pytest-homeassistant-custom-component
+ruff
+websockets>=12.0
