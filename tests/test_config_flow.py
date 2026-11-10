@@ -80,6 +80,19 @@ async def test_form_cannot_connect(
     mock_setup_entry.assert_called_once()
 
 
+async def test_form_unknown_error(hass: HomeAssistant) -> None:
+    """Test handling an unexpected error."""
+    result = await _start_flow(hass)
+
+    with patch(PATCH_GET_STATUS, side_effect=ValueError("boom")):
+        result = await hass.config_entries.flow.async_configure(
+            result["flow_id"], USER_INPUT
+        )
+
+    assert result["type"] is FlowResultType.FORM
+    assert result["errors"] == {"base": "unknown"}
+
+
 async def test_form_already_configured(
     hass: HomeAssistant,
     mock_setup_entry: AsyncMock,

@@ -31,5 +31,6 @@ The easiest way to install **Creality 3D Printer** is via **[HACS (Home Assistan
 
 ## Troubleshooting
 
+- The integration polls every 30 seconds, and every 5 seconds while a print is active.
 - When the printer is powered off, the sensors show as `unavailable`. The integration retries every 30 seconds and recovers automatically when the printer is switched on.
 - If Home Assistant started while the printer was off, the device model may be empty until the integration is reloaded while the printer is online.
